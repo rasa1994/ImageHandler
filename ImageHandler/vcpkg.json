@@ -1,7 +1,0 @@
-{
-  "name": "simpleimagehandler",
-  "dependencies": [
-    "stb",
-    "gtest"
-  ]
-}

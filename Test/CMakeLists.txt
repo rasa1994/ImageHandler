@@ -1,4 +1,5 @@
-include(LoadGoogleTest)
+include("../cmake/LoadGoogleTest.cmake")
+
 
 add_executable(tests
     ImageHandlerTests.cpp

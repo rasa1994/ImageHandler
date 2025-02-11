@@ -1,4 +1,4 @@
-include(LoadStb)
+include("../cmake/LoadStb.cmake")
 
 add_library(imagehandler STATIC ImageLoader.ixx)
 message(STATUS "STB_INCLUDE_DIR: ${stb_SOURCE_DIR}")

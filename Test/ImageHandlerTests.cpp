@@ -159,6 +159,34 @@ TEST(ImageLoader, LoadWebp)
 }
 
 
+TEST(ErrorTypeString, ErrorTypeNO_ERROR)
+{
+	ErrorType type = ErrorType::NO_ERROR;
+	EXPECT_EQ(GetErrorString(type), "NO_ERROR");
+}
+
+
+TEST(ErrorTypeString, ErrorTypeWRONG_FORMAT)
+{
+	ErrorType type = ErrorType::WRONG_FORMAT;
+	EXPECT_EQ(GetErrorString(type), "WRONG_FORMAT");
+}
+
+
+TEST(ErrorTypeString, ErrorTypeFAILED_TO_LOAD_IMAGE)
+{
+	ErrorType type = ErrorType::FAILED_TO_LOAD_IMAGE;
+	EXPECT_EQ(GetErrorString(type), "FAILED_TO_LOAD_IMAGE");
+}
+
+
+
+TEST(ErrorTypeString, ErrorTypeFAILED_TO_WRITE_IMAGE)
+{
+	ErrorType type = ErrorType::FAILED_TO_WRITE_IMAGE;
+	EXPECT_EQ(GetErrorString(type), "FAILED_TO_WRITE_IMAGE");
+}
+
 
 int RunAllTests()
 {

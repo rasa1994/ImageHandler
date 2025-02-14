@@ -4,6 +4,8 @@ module;
 #include "stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
+
+#include "magic_enum/magic_enum_all.hpp"
 export module ImageLoader;
 
 import <vector>;
@@ -66,9 +68,7 @@ export
 		std::string lower{};
 		lower.resize(path.size());
 
-		// for some reason transform does not work...
-		for (auto i{ 0ul }; i < path.size(); ++i)
-			lower[i] = std::tolower(path[i]); 
+		std::ranges::transform(path, std::back_inserter(lower), [](const auto& a) {return std::tolower(a); });
 		
 		if (lower.ends_with(".png"))
 		{
@@ -143,31 +143,25 @@ export
 		{
 			if (stbi_write_png(path.data(), image.m_width, image.m_height, image.m_channels, image.m_imageData.data(), image.m_width * image.m_channels))
 				return true;
-			else
-			{
-				error = ErrorType::FAILED_TO_WRITE_IMAGE;
-				return false;
-			}
+
+			error = ErrorType::FAILED_TO_WRITE_IMAGE;
+			return false;
 		}
 		case ImageType::JPG:
 		{
 			if (stbi_write_jpg(path.data(), image.m_width, image.m_height, image.m_channels, image.m_imageData.data(), 100))
 				return true;
-			else
-			{
-				error = ErrorType::FAILED_TO_WRITE_IMAGE;
-				return false;
-			}
+
+			error = ErrorType::FAILED_TO_WRITE_IMAGE;
+			return false;
 		}
 		case ImageType::BMP:
 		{
 			if (stbi_write_bmp(path.data(), image.m_width, image.m_height, image.m_channels, image.m_imageData.data()))
 				return true;
-			else
-			{
-				error = ErrorType::FAILED_TO_WRITE_IMAGE;
-				return false;
-			}
+
+			error = ErrorType::FAILED_TO_WRITE_IMAGE;
+			return false;
 		}
 		default:
 			break;
@@ -175,6 +169,12 @@ export
 
 		error = ErrorType::FAILED_TO_WRITE_IMAGE;
 		return false;
+	}
+
+
+	std::string_view GetErrorString(const ErrorType& error)
+	{
+		return magic_enum::enum_name(error);
 	}
 }
 

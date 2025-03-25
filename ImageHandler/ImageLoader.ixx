@@ -88,7 +88,7 @@ export
 			return Image{};
 		}
 
-		unsigned char* image = stbi_load(path.data(), &width, &height, &channels, 0);
+		unsigned char* image = stbi_load(path.data(), &width, &height, &channels, STBI_rgb_alpha);
 		if (!image)
 		{
 			error = ErrorType::FAILED_TO_LOAD_IMAGE;

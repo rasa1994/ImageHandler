@@ -94,6 +94,7 @@ export
 			error = ErrorType::FAILED_TO_LOAD_IMAGE;
 			return Image{};
 		}
+		channels = 4;
 		const auto size = height * width * channels;
 
 		Image newImage
